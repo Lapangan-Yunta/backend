@@ -1,3 +1,10 @@
+@extends('backend.layouts.parent')
+
+@section('title','Create Account')
+
+@section('top','Create Account')
+
+@section('content')
 <form action="{{route('account.create.process')}}" method="POST">
     @csrf
     @method('POST')
@@ -39,7 +46,7 @@
     </div>
     <div class="m-3">
         <label class="form-label" for="">Role</label>
-        <select class="form-select" name="role" id="role">
+        <select class="form-control" name="role" id="role">
             <option value="">---Pilih Role---</option>
             <option value="admin">Admin</option>
             <option value="user">User</option>
@@ -55,3 +62,4 @@
         <a href="{{route('account.index')}}" class="btn btn-warning mt-2" type="submit">Batal</a>
     </div>
 </form>
+@endsection

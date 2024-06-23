@@ -31,4 +31,9 @@ class FrontendController extends Controller
     {
         return view('frontend.payment');
     }
+
+    public function confirm()
+    {
+        return view('frontend.confirm-booking');
+    }
 }
