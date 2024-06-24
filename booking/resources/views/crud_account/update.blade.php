@@ -1,3 +1,10 @@
+@extends('backend.layouts.parent')
+
+@section('title','Update Account')
+
+@section('top','Update Account')
+
+@section('content')
 <form action="{{route('account.update',$show->id)}}" method="POST">
     @csrf
     @method('PUT')
@@ -19,12 +26,9 @@
     </div>
     <div class="m-3">
         <label class="form-label" for="">Role</label>
-        <select class="form-select" name="role" id="role">
-            @foreach ($show as $item)
-                <option value="">{{$item->role}}</option>
-            @endforeach
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
+        <select class="form-control" name="role" id="role">
+            <option {{$show->role == 'admin' ? 'selected' : ''}} value="admin">Admin</option>
+            <option {{$show->role == 'user' ? 'selected' : ''}}  value="user">User</option>
         </select>
     </div>
     <div class="m-3">
@@ -32,3 +36,4 @@
         <a href="{{route('account.index')}}" class="btn btn-warning mt-2" type="submit">Batal</a>
     </div>
 </form>
+@endsection

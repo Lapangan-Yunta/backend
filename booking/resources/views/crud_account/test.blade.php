@@ -1,6 +1,12 @@
+@extends('backend.layouts.parent')
 
-<table class="table bordered" border="1" align="center" style="width:50%; ">
-    <h3 class="text-light text-center" align="center" style="margin:20pxz">Data Persediaan Barang</h3>
+@section('title','Account')
+
+@section('top','Account')
+
+@section('content')
+<a href="{{route('account.create')}}"  class="btn btn-primary mb-2">Input New Data</a>
+<table class="table bordered" border="1" align="center">
     <thead class="table-primary">
         <th>ID</th>
         <th>Nama</th>
@@ -17,8 +23,8 @@
             <td>{{$item->email}}</td>
             <td>{{$item->role}}</td>
             <td>
-                <a href="{{route('account.show',$item->id)}}" class="btn btn-primary"><button>Detail</button></a>
-                <a href="{{route('account.edit',$item->id)}}" class="btn btn-warning"><button>Edit</button></a>
+                <a href="{{route('account.show',$item->id)}}" class="btn btn-primary">Detail</a>
+                <a href="{{route('account.edit',$item->id)}}" class="btn btn-warning">Edit</a>
                 <form action="{{route('account.destroy',$item->id)}}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
@@ -28,6 +34,4 @@
         </tbody>
     @endforeach
 </table>
-<form action="" align="center" style="margin:10px">
-    <a href="/account/create"  class="btn btn-primary">Input New Data</a>
-</form>
+@endsection
