@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\frontend\FrontendController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[FrontendController::class,'home'])->name('home');
@@ -23,10 +24,24 @@ Route::get('/confirm-booking',[FrontendController::class,'confirm'])->name('conf
 
 Route::get('/login',[AuthController::class,'login'])->name('login');
 
+Route::post('/login/process',[AuthController::class,'login_process'])->name('login.process');
+
+
 Route::get('/register',[AuthController::class,'register'])->name('register');
 
+Route::post('/register/process',[AuthController::class,'register_process'])->name('register.process');
 
-Route::prefix('admin')->group(function(){
+Route::get('/verify/{phone}/{random_url}',[AuthController::class,'verify'])->name('verify');
+
+Route::post('/verify/process',[AuthController::class,'verify_process'])->name('verify.process');
+
+Route::post('/resend/otp',[AuthController::class,'resend'])->name('resend');
+
+Route::prefix('user')->middleware('auth','checkrole:user')->group(function() {
+    Route::get('/dashboard',[UserDashboardController::class,'index'])->name('user.dashboard');
+});
+
+Route::prefix('admin')->middleware('auth','checkrole:admin')->group(function(){
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
     //account

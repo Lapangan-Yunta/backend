@@ -14,19 +14,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = faker::create();
+        // $faker = faker::create();
 
-        for($i = 0 ; $i <=15 ; $i++){
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->email,
-                'phone' => $faker->phoneNumber,
-                'role' => 'user',
-                'otp' => rand(111111,999999),
-                'access' => 'yes',
-                'password' => bcrypt(rand(000000, 99999999999))
-            ]);
-        }
+        // for($i = 0 ; $i <=15 ; $i++){
+        //     User::create([
+        //         'name' => $faker->name,
+        //         'email' => $faker->email,
+        //         'phone' => $faker->phoneNumber,
+        //         'role' => 'user',
+        //         'otp' => rand(111111,999999),
+        //         'access' => 'yes',
+        //         'password' => bcrypt(rand(000000, 99999999999))
+        //     ]);
+        // }
 
       
     }

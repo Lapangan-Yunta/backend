@@ -5,16 +5,16 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>@yield('title') | Admin</title>
 
-  @include('backend.layouts.include')
+  @include('user.layouts.include')
 </head>
 
 <body>
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
-      @include('backend.layouts.navbar')
+      @include('user.layouts.navbar')
       <div class="main-sidebar sidebar-style-2">
-        @include('backend.layouts.aside')
+        @include('user.layouts.aside')
       </div>
 
       <!-- Main Content -->
@@ -29,10 +29,10 @@
           </div>
         </section>
       </div>
-      @include('backend.layouts.footer')
+      @include('user..layouts.footer')
     </div>
   </div>
 
-  @include('backend.layouts.script')
+  @include('user..layouts.script')
 </body>
 </html>
