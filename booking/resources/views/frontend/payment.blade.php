@@ -7,29 +7,37 @@
         <div class="about-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 80px;">
             <div id="left"class=" rounded-3 mb-2" style="width: 500px;height: 400px; background-color: #D9D9D9;">`
                 <h4 class="text-start ms-4 fw-bold">Customer Detail</h4>
-                <form class="row g-2 needs-validation ms-5 mt-3" novalidate>
+                <form class="row g-2 needs-validation ms-5 mt-3" novalidate action="{{route('booking.details.process')}}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <input type="hidden" name="booking_id" id="" value="{{$booking->id}}">
                     <div class="col-md-5 position-relative me-3">
                         <label for="validationTooltip01" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" id="validationTooltip01" placeholder="Nama Lengkap">
+                        <input type="text" class="form-control" id="validationTooltip01" placeholder="Nama Lengkap" name="nama_tim">
                     </div>
                     <div class="col-md-4 position-relative ms-3">
                         <label for="validationTooltip02" class="form-label">Customer Phone</label>
-                        <input type="tel" class="form-control" id="validationTooltip02" placeholder="08********">
+                        <input type="tel" class="form-control" id="validationTooltip02" placeholder="08********" name="no_hp">
                     </div>
 
                     <div class="col-md-10 position-relative">
                         <label for="validationTooltipUsername" class="form-label">Email</label>
                         <div class="input-group has-validation">
                             <input type="email" class="form-control" id="validationTooltipUsername"
-                                placeholder="@gmail.com">
+                                placeholder="@gmail.com" name="email">
                         </div>
                     </div>
 
                     <div class="col-md-10 position-relative">
-                        <label for="validationTooltipUsername" class="form-label">User Photo</label>
+                        <label for="validationTooltipUsername" class="form-label">Note</label>
                         <div class="input-group has-validation">
-                            <input type="file" class="form-control" id="validationTooltipUsername">
+                            <textarea class="form-control" id="validationTooltipUsername"
+                                 name="note"></textarea>
                         </div>
+                    </div>
+
+                    <div class="col-md-10 position-relative">
+                        <button type="submit" class="btn btn-primary">Booking</button>
                     </div>
 
                 </form>
@@ -58,21 +66,20 @@
         <div class=" rounded-3 mb-5 shadow p-4 mb-5 bg-body-tertiary rounded"
             style="width: 1300px;height: 400px; background-color: #f5f5f5;line-height: 8px;">
             <h4 class="text-start fw-bold">Payment Detail</h4>
-            <h4 class="mt-4 fw-light">Inspire Arena Sulut</h4>
-            <p class="fw-light">Lapangan Outdoor A</p>
-            <p class="fw-bold" style="color: #1A4D2E;">Monday, 10 Jun 2024◦08.00-09.00</p>
+            <h4 class="mt-4 fw-light">{{$booking->lapangan->title}}</h4>
+            <p class="fw-bold" style="color: #1A4D2E;">{{ \Carbon\Carbon::parse($booking->schedule->date)->format('l, d F Y') }}, {{$booking->schedule->date}} , {{ sprintf('%02d:00 - %02d:00', $booking->schedule->hour, $booking->schedule->hour + 1) }}</p>
 
             <hr class="mt-4">
             <div class="d-flex justify-content-between">
                 <p class="fw-bold mt-3">Harga Lapangan :</p>
-                <P class="fw-bold mt-3">Rp. 175.000,</P>
+                <P class="fw-bold mt-3">Rp. {{ number_format($booking->lapangan->price, 0, ',', '.') }}</P>
             </div>
             <hr class="mt-5">
 
             <p class="fw-bold mt-4">Total Bayar</p>
             <div class="d-flex justify-content-between">
                 <p class="fw-bold mt-4" style="color: #b31312;">Bayar Penuh</p>
-                <p class="fw-bold mt-4" style="color: #b31312;">Rp. 177.500,</p>
+                <p class="fw-bold mt-4" style="color: #b31312;">Rp. {{ number_format($booking->lapangan->price, 0, ',', '.') }}</p>
             </div>
         </div>
     </div>

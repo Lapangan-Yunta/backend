@@ -10,23 +10,37 @@
             <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item mt-2">
-                        <a class="nav-link" href="/frontend/home">HOME</a>
+                        <a class="nav-link" href="{{route('home')}}">HOME</a>
                     </li>
                     <li class="nav-item mt-2">
-                        <a class="nav-link" href="/frontend/venue">VENUE</a>
+                        <a class="nav-link" href="{{route('venue')}}">VENUE</a>
                     </li>
                     <li class="nav-item nav-link mt-2"><a href="/frontend/payment"><i class="fa-solid fa-cart-shopping"
                                 style="color: #b31312"></i></a>
                     </li>
+                    @if(Auth::check())
                     <li class="nav-item nav-link">
-                        <a href="/auth/register" class="text-decoration-none"><button type="button"
+                        <a href="
+                        @if(Auth::user()->role == 'admin')
+                        {{route('dashboard')}}
+                        @else
+                        {{route('user.dashboard')}}
+                        @endif
+                        " class="text-decoration-none"><button type="button"
+                                class="shadow-sm d-flex btn btn-light"
+                                style="font-family: 'inter'; font-weight: bold">{{Auth::user()->name}}</button></a>
+                    </li>
+                    @else
+                    <li class="nav-item nav-link">
+                        <a href="{{route('register')}}" class="text-decoration-none"><button type="button"
                                 class="shadow-sm d-flex btn btn-light"
                                 style="font-family: 'inter'; font-weight: bold">REGISTER</button></a>
                     </li>
                     <li class="nav-item nav-link">
-                        <a href="/auth/login" class="text-decoration-none"><button type="button" class="d-flex btn"
+                        <a href="{{route('login')}}" class="text-decoration-none"><button type="button" class="d-flex btn"
                                 style="background: #b31312; color: #f5f5f5; font-family: 'inter'; font-weight: bold">LOGIN</button></a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </div>

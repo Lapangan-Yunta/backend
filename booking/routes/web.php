@@ -2,22 +2,35 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\Backend\BookingController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\FasilitasController;
+use App\Http\Controllers\Backend\GalleryController;
+use App\Http\Controllers\Backend\LapanganController;
+use App\Http\Controllers\Backend\RulesController;
+use App\Http\Controllers\Backend\ScheduleController;
 use App\Http\Controllers\frontend\FrontendController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[FrontendController::class,'home'])->name('home');
 
-Route::get('/detail',[FrontendController::class,'detail'])->name('detail');
+Route::get('/detail/{title}',[FrontendController::class,'detail'])->name('detail');
 
 Route::get('/payment',[FrontendController::class,'payment'])->name('payment');
 
-Route::get('/schedule',[FrontendController::class,'schedule'])->name('schedule');
+Route::get('/jadwal', [ScheduleController::class, 'index'])->name('jadwal.index');
 
 Route::get('/venue',[FrontendController::class,'venue'])->name('venue');
 
 Route::get('/confirm-booking',[FrontendController::class,'confirm'])->name('confirm');
+
+Route::post('/booking',[BookingController::class,'booking'])->name('booking.process');
+
+Route::get('/booking/detail/{random_url}/{id}',[BookingController::class,'booking_details'])->name('booking.details');
+
+Route::post('/booking/detail/process',[BookingController::class,'booking_details_process'])->name('booking.details.process');
+
 
 
 //authentication
@@ -39,10 +52,67 @@ Route::post('/resend/otp',[AuthController::class,'resend'])->name('resend');
 
 Route::prefix('user')->middleware('auth','checkrole:user')->group(function() {
     Route::get('/dashboard',[UserDashboardController::class,'index'])->name('user.dashboard');
+
+    Route::post('/schedule', [BookingController::class, 'schedule']);
+    Route::get('/cart', [BookingController::class, 'viewCart'])->name('user.cart');
+    Route::post('/booking/submit/{id}', [BookingController::class, 'submitBooking'])->name('booking.submit');
+
+    Route::post('/add-to-cart', [BookingController::class, 'addToCart'])->name('user.add.cart');
+    Route::post('/remove-from-cart', [BookingController::class, 'removeFromCart'])->name('user.remove.cart');
+    Route::get('/cart/count', 'DashboardController@getCartCount')->name('user.cart.count');
 });
 
 Route::prefix('admin')->middleware('auth','checkrole:admin')->group(function(){
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+
+    Route::get('/lapangan', [LapanganController::class, 'index'])->name('lapangan.index');
+
+    Route::get('/lapangan/create', [LapanganController::class, 'create'])->name('lapangan.create');
+
+    Route::post('/lapangan/create/process', [LapanganController::class, 'store'])->name('lapangan.store');
+
+    Route::get('/lapangan/{id}', [LapanganController::class, 'show'])->name('lapangan.show');
+
+    Route::get('/lapangan/edit/{id}', [LapanganController::class, 'edit'])->name('lapangan.edit');
+
+    Route::put('/lapangan/update/{id}', [LapanganController::class, 'update'])->name('lapangan.update');
+
+    Route::delete('/lapangan/delete/{id}', [LapanganController::class, 'destroy'])->name('lapangan.destroy');
+
+    Route::get('/gallery/{title}', [GalleryController::class, 'index'])->name('gallery.index');
+    Route::post('/gallery/process', [GalleryController::class, 'store'])->name('gallery.process');
+
+    // Route Fasilitas 
+    Route::get('/fasilitas',[FasilitasController::class,'index'])->name('fasilitas.index');
+
+    Route::get('/fasilitas/create',[FasilitasController::class,'create'])->name('fasilitas.create');
+
+    Route::post('/fasilitas/create/process',[FasilitasController::class,'store'])->name('fasilitas.store');
+
+    Route::get('/fasilitas/{id}', [FasilitasController::class,'show'])->name('fasilitas.show');
+
+    Route::get('/fasilitas/edit/{id}',[FasilitasController::class,'edit'])->name('fasilitas.edit');
+
+    Route::put('/fasilitas/update/{id}',[FasilitasController::class,'update'])->name('fasilitas.update');
+
+    Route::delete('/fasilitas/delete/{id}', [FasilitasController::class,'destroy'])->name('fasilitas.destroy');
+
+
+    //Rules
+
+    Route::get('/rules',[RulesController::class,'index'])->name('rules.index');
+
+    Route::get('/rules/create',[RulesController::class,'create'])->name('rules.create');
+
+    Route::post('/rules/create/process',[RulesController::class,'store'])->name('rules.store');
+
+    Route::get('/rules/{id}', [RulesController::class,'show'])->name('rules.show');
+
+    Route::get('/rules/edit/{id}',[RulesController::class,'edit'])->name('rules.edit');
+
+    Route::put('/rules/update/{id}',[RulesController::class,'update'])->name('rules.update');
+
+    Route::delete('/rules/delete/{id}', [RulesController::class,'destroy'])->name('rules.destroy');
 
     //account
     Route::get('/account',[AccountController::class,'index'])->name('account.index');

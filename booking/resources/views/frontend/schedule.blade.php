@@ -40,8 +40,7 @@
                     <h5 class="fw-bold">Pilih Tanggal Booking :</h5>
                     <form class="row">
                         <div class="input-group mb-3">
-                            <input type="date" class="form-control text-center fw-bold" style="cursor: pointer;"
-                                placeholder="Tanggal" aria-label="Recipient's username" aria-describedby="btn-tgl">
+                            <input type="date" class="form-control" id="bookingDate" value="{{ $selectedDate }}" onchange="updateSchedules()">
                         </div>
                     </form>
                 </div>
@@ -49,14 +48,10 @@
                     <h5 class="fw-bold">Pilih Lapangan :</h5>
                     <form class="row">
                         <div class="input-group mb-3">
-                            <select class="form-select text-center fw-bold" id="inputGroupSelect02"
-                                style="cursor: pointer;">
-                                <option class="fw-bold" selected>Futsal Outdoor A</option>
-                                <option class="fw-bold" value="1">Futsal Outdoor B</option>
-                                <option class="fw-bold" value="2">Futsal Indoor A</option>
-                                <option class="fw-bold" value="3">Futsal Indoor B</option>
-                                <option class="fw-bold" value="4">Mini Soccer A</option>
-                                <option class="fw-bold" value="5">Mini Soccer B</option>
+                            <select class="form-select" id="lapanganSelect" onchange="updateSchedules()">
+                                @foreach($lapangans as $lapangan)
+                                    <option value="{{ $lapangan->id }}" {{ $lapangan->id == $selectedLapanganId ? 'selected' : '' }}>{{ $lapangan->title }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </form>
@@ -70,471 +65,59 @@
                         style="color: #b31312;">Jam Booking</span></p>
             </div>
             <div class="d-grid" style=" grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px;">
-                <div class=" rounded-3 mb-2 text-center p-5"
-                    style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px; background-color: #FFF6F6">
-                    <p class="fw-bold mt-1">08 Jun</p>
-                    <p class="fw-bold" style="color: #b31312;">Saturday</p>
-                </div>
-                <div class=" rounded-3 mb-2 text-center p-5"
-                    style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px; background-color: #FFF6F6">
-                    <p class="fw-bold mt-1">09 Jun</p>
-                    <p class="fw-bold" style="color: #b31312;">Sunday</p>
-                </div>
-                <div class=" rounded-3 mb-2 text-center p-5"
-                    style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px; background-color: #FFF6F6">
-                    <p class="fw-bold mt-1">10 Jun</p>
-                    <p class="fw-bold" style="color: #b31312;">Monday</p>
-                </div>
-                <div class=" rounded-3 mb-2 text-center p-5"
-                    style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px; background-color: #FFF6F6">
-                    <p class="fw-bold mt-1">11 Jun</p>
-                    <p class="fw-bold" style="color: #b31312;">Tuesday</p>
-                </div>
-                <div class=" rounded-3 mb-2 text-center p-5"
-                    style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px; background-color: #FFF6F6">
-                    <p class="fw-bold mt-1">12 Jun</p>
-                    <p class="fw-bold" style="color: #b31312;">Wednesday</p>
-                </div>
-                <div class=" rounded-3 mb-2 text-center p-5"
-                    style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px; background-color: #FFF6F6">
-                    <p class="fw-bold mt-1">13 Jun</p>
-                    <p class="fw-bold" style="color: #b31312;">Thursday</p>
-                </div>
-                <div class=" ">
-                    <input type="radio" class="btn-check rounded-3 mb-2 text-center p-5" name="options-outlined"
-                        id="r1" autocomplete="off" disabled>
-                    <label class="btn " for="r1"
-                        style="line-height: 5px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">08 Jun</p>
-                        <p class="fw-bold text-center mt-5">10.00 - 12.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-3" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r2" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r2"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">09 Jun</p>
-                        <p class="fw-bold text-center mt-5">10.00 - 12.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r3" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r3"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">10 Jun</p>
-                        <p class="fw-bold text-center mt-5">10.00 - 12.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r4" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r4"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">11 Jun</p>
-                        <p class="fw-bold text-center mt-5">10.00 - 12.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r5" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r5"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">12 Jun</p>
-                        <p class="fw-bold text-center mt-5">10.00 - 12.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r6" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r6"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">13 Jun</p>
-                        <p class="fw-bold text-center mt-5">10.00 - 12.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r7" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r7"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">08 Jun</p>
-                        <p class="fw-bold text-center mt-5">12.00 - 14.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r8" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r8"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">09 Jun</p>
-                        <p class="fw-bold text-center mt-5">12.00 - 14.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r9" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r9"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">10 Jun</p>
-                        <p class="fw-bold text-center mt-5">12.00 - 14.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r10" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r10"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">11 Jun</p>
-                        <p class="fw-bold text-center mt-5">12.00 - 14.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r11" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r11"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">12 Jun</p>
-                        <p class="fw-bold text-center mt-5">12.00 - 14.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r12" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r12"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">13 Jun</p>
-                        <p class="fw-bold text-center mt-5">12.00 - 14.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r13" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r13"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">08 Jun</p>
-                        <p class="fw-bold text-center mt-5">14.00 - 16.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r14" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r14"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">09 Jun</p>
-                        <p class="fw-bold text-center mt-5">14.00 - 16.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r15" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r15"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">10 Jun</p>
-                        <p class="fw-bold text-center mt-5">14.00 - 16.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r35" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r35"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">11 Jun</p>
-                        <p class="fw-bold text-center mt-5">14.00 - 16.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r36" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r36"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">12 Jun</p>
-                        <p class="fw-bold text-center mt-5">14.00 - 16.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r16" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r16"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">13 Jun</p>
-                        <p class="fw-bold text-center mt-5">14.00 - 16.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r17" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r17"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">08 Jun</p>
-                        <p class="fw-bold text-center mt-5">16.00 - 18.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r18" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r18"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">09 Jun</p>
-                        <p class="fw-bold text-center mt-5">16.00 - 18.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r19" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r19"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">10 Jun</p>
-                        <p class="fw-bold text-center mt-5">16.00 - 18.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r33" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r33"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">11 Jun</p>
-                        <p class="fw-bold text-center mt-5">16.00 - 18.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r20" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r20"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">12 Jun</p>
-                        <p class="fw-bold text-center mt-5">16.00 - 18.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r21" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r21"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">13 Jun</p>
-                        <p class="fw-bold text-center mt-5">16.00 - 18.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r22" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r22"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">08 Jun</p>
-                        <p class="fw-bold text-center mt-5">18.00 - 20.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r23" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r23"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">09 Jun</p>
-                        <p class="fw-bold text-center mt-5">18.00 - 20.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r24" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r24"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">10 Jun</p>
-                        <p class="fw-bold text-center mt-5">18.00 - 20.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r25" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r25"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">11 Jun</p>
-                        <p class="fw-bold text-center mt-5">18.00 - 20.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r26" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r26"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">12 Jun</p>
-                        <p class="fw-bold text-center mt-5">18.00 - 20.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r27" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r27"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">13 Jun</p>
-                        <p class="fw-bold text-center mt-5">18.00 - 20.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r28" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r28"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">08 Jun</p>
-                        <p class="fw-bold text-center mt-5">20.00 - 22.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r29" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r29"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">09 Jun</p>
-                        <p class="fw-bold text-center mt-5">20.00 - 22.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r30" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r30"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">10 Jun</p>
-                        <p class="fw-bold text-center mt-5">20.00 - 22.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r34" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r34"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">11 Jun</p>
-                        <p class="fw-bold text-center mt-5">20.00 - 22.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r31" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r31"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">12 Jun</p>
-                        <p class="fw-bold text-center mt-5">20.00 - 22.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r32" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r32"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">13 Jun</p>
-                        <p class="fw-bold text-center mt-5">20.00 - 22.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
+                
+                @for ($hour = 9; $hour <= 20; $hour++)
+                    @php
+                        $schedule = $schedules->get($hour);
+                        $status = $schedule ? $schedule->status : 'available';
+                        $bgClass = $status == 'booked' ? 'bg-booked' : 'bg-available';
+                        $price = ($hour < 18) ? '120.000,00' : '150.000,00';
+                        $scheduleId = $schedule ? $schedule->id : null;
+                    @endphp
 
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r37" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r37"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">08 Jun</p>
-                        <p class="fw-bold text-center mt-5">22.00 - 00.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r38" autocomplete="off"
-                        disabled>
-                    <label class="btn btn-outline-secondary" for="r38"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">09 Jun</p>
-                        <p class="fw-bold text-center mt-5">22.00 - 00.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="">Booked</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r39" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r39"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">10 Jun</p>
-                        <p class="fw-bold text-center mt-5">22.00 - 00.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r40" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r40"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">11 Jun</p>
-                        <p class="fw-bold text-center mt-5">22.00 - 00.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r41" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r41"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">12 Jun</p>
-                        <p class="fw-bold text-center mt-5">22.00 - 00.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" class="btn-check" name="options-outlined" id="r42" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="r42"
-                        style="line-height: 8px;border: 1px solid black;width: 200px;height: 150px;">
-                        <p class="fw-bold text-end mt-2 mb-3">13 Jun</p>
-                        <p class="fw-bold text-center mt-5">22.00 - 00.00</p>
-                        <p class="fw-bold text-center mb-4">Rp. 125,000</p>
-                        <p class="fw-bold text-center pt-1" style="color: #b31312;">Available</p>
-                    </label>
-                </div>
+                    <div class="card-jadwal">
+                        @if($scheduleId)
+                            @if($status == 'available')
+                                <form action="{{ route('booking.process') }}" method="POST">
+                                    @csrf
+                                    <div class="card-body-jadwal {{ $bgClass }}" id="schedule-{{ $hour }}">
+                                        <label class="btn btn-outline-success" style="line-height: 8px; border: 1px solid black; width: 200px; height: 150px;">
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="lapangan_id" value="{{ $selectedLapanganId }}">
+                                            <input type="hidden" name="schedule_id" value="{{ $scheduleId }}">
+                                            <input type="hidden" name="date" value="{{ $selectedDate }}">
+                                            <p class="fw-bold text-center mt-2">{{ $selectedDate }}</p>
+                                            <p class="fw-bold text-center mt-2">{{ sprintf('%02d:00 - %02d:00', $hour, $hour + 1) }}</p>
+                                            <p class="fw-bold text-center">Rp. {{ $price }}</p>
+                                            <p class="fw-bold text-center pt-1 mb-2">{{ ucfirst($status) }}</p>
+                                            <button class="btn btn-primary" type="submit">+</button>
+                                        </label>
+                                    </div>
+                                </form>
+                            @else
+                                <div class="card-body-jadwal bg-unavailable" id="schedule-{{ $hour }}">
+                                    <label class="btn btn-outline-danger" style="line-height: 8px; border: 1px solid black; width: 200px; height: 150px;">
+                                        <p class="fw-bold text-center mt-4">{{ $selectedDate }}</p>
+                                        <p class="fw-bold text-center mt-2">{{ sprintf('%02d:00 - %02d:00', $hour, $hour + 1) }}</p>
+                                        <p class="fw-bold text-center">Rp. {{ $price }}</p>
+                                        <p class="fw-bold text-center pt-1 mb-2">Unavailable</p>
+                                    </label>
+                                </div>
+                            @endif
+                        @else
+                            <div class="card-body-jadwal bg-unavailable" id="schedule-{{ $hour }}">
+                                <label class="btn btn-outline-danger" style="line-height: 8px; border: 1px solid black; width: 200px; height: 150px;">
+                                    <p class="fw-bold text-center mt-4">{{ $selectedDate }}</p>
+                                    <p class="fw-bold text-center mt-2">{{ sprintf('%02d:00 - %02d:00', $hour, $hour + 1) }}</p>
+                                    <p class="fw-bold text-center">Rp. {{ $price }}</p>
+                                    <p class="fw-bold text-center pt-1 mb-2">Unavailable</p>
+                                </label>
+                            </div>
+                        @endif
+                    </div>
+                @endfor
+
+
             </div>
 
         </section>
@@ -668,11 +251,104 @@
         </section>
     </div>
 
-    <div class="d-flex align-items-center justify-content-center" style="margin-top: 150px;">
-        <a class="w-100 h-100" href="/frontend/payment"><button class=" btn rounded-0 fw-bold fs-5"
-                style="background-color: #b31312; color: white; width: 100%; height: 70px;">Lanjut Pembayaran</button></a>
-    </div>
-
+    <script>
+        // Fungsi untuk mengatur tanggal minimum pada input date
+    // Fungsi untuk mengatur tanggal minimum pada input date
+    function setMinDate() {
+            const today = new Date();  // Mendapatkan tanggal hari ini
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Januari dimulai dari 0
+            const yyyy = today.getFullYear();
+            const minDate = yyyy + '-' + mm + '-' + dd;  // Format tanggal untuk atribut min
+    
+            document.getElementById("bookingDate").min = minDate;  // Set atribut min pada input date
+        }
+    
+        // Panggil fungsi setMinDate saat halaman dimuat
+        document.addEventListener("DOMContentLoaded", function() {
+            setMinDate();
+        });
+        function bookSchedule(hour) {
+            const date = document.getElementById("bookingDate").value;
+            const lapanganId = document.getElementById("lapanganSelect").value;
+    
+            console.log("Booking schedule for hour:", hour, "date:", date, "lapanganId:", lapanganId);
+    
+            fetch("{{ route('user.add.cart') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                },
+                body: JSON.stringify({
+                    hour: hour,
+                    date: date,
+                    lapangan_id: lapanganId,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Response data:", data);
+                    if (data.success) {
+                        const card = document.getElementById(`schedule-${hour}`);
+                        card.classList.remove("bg-available");
+                        card.classList.add("bg-booked");
+                        card.querySelector("p.fs-5").textContent = "Booked";
+                        const button = card.querySelector("button");
+                        button.classList.replace("btn-book", "btn-cancel");
+                        button.textContent = "-";
+                        button.setAttribute("onclick", `cancelBooking(${hour})`);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error booking schedule:", error);
+                });
+        }
+    
+        function cancelBooking(hour) {
+            const date = document.getElementById("bookingDate").value;
+            const lapanganId = document.getElementById("lapanganSelect").value;
+    
+            console.log("Cancelling booking for hour:", hour, "date:", date, "lapanganId:", lapanganId);
+    
+            fetch("{{ route('user.remove.cart') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                },
+                body: JSON.stringify({
+                    hour: hour,
+                    date: date,
+                    lapangan_id: lapanganId,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Response data:", data);
+                    if (data.success) {
+                        const card = document.getElementById(`schedule-${hour}`);
+                        card.classList.remove('bg-booked');
+                        card.classList.add('bg-available');
+                        card.querySelector('p.fs-5').textContent = 'Available';
+                        const button = card.querySelector('button');
+                        button.classList.replace('btn-cancel', 'btn-book');
+                        button.textContent = '+';
+                        button.setAttribute('onclick', `bookSchedule(${hour})`);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error cancelling booking:", error);
+                });
+        }
+    
+        function updateSchedules() {
+            const date = document.getElementById("bookingDate").value;
+            const lapanganId = document.getElementById("lapanganSelect").value;
+            window.location.href = `/jadwal?date=${date}&lapangan_id=${lapanganId}`;
+        }
+    </script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
     </script>
     <script>

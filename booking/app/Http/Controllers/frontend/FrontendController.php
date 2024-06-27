@@ -3,28 +3,39 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gallery;
+use App\Models\Lapangan;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     public function home()
     {
-        return view('frontend.home');
+        $lapangan = Lapangan::all();
+        return view('frontend.home',compact('lapangan'));
     }
     
-    public function detail()
+    public function detail($title)
     {
-        return view('frontend.detail');
+        $lapangan = Lapangan::where('title',$title)->first();
+        $lapangans = Lapangan::where('title',$title)->get();
+        $gallery = Gallery::where('lapangan_id',$lapangan->id)->get();
+        return view('frontend.detail',compact('lapangan','lapangans','gallery'));
     }
     
-    public function schedule()
+    public function schedule($title)
     {
-        return view('frontend.schedule');
+        $lapangan = Lapangan::where('title',$title)->first();
+        $schedule = Schedule::where('lapangan_id',$lapangan->id)->get();
+        return view('frontend.schedule',compact('schedule'));
     }
     
     public function venue()
     {
-        return view('frontend.venue');
+        $lapangan_new = Lapangan::orderBy('id','DESC')->get();
+        $lapangan = Lapangan::all();
+        return view('frontend.venue',compact('lapangan_new','lapangan'));
     }
     
     public function payment()
