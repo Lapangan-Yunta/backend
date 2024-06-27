@@ -2,7 +2,7 @@
 
 @section('title','Detail')
 
-@section('top','Fasilitas Detail')
+@section('toSp','Fasilitas Detail')
 
 @section('content')
     <div class="card" style="width: 18rem;">

@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DetailRulesController;
+use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\RulesController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\Backend\BookingController;
 use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\FasilitasController;
 use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\LapanganController;
-use App\Http\Controllers\Backend\RulesController;
 use App\Http\Controllers\Backend\ScheduleController;
 use App\Http\Controllers\frontend\FrontendController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;

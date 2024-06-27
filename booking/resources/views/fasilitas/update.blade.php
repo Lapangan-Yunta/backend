@@ -2,7 +2,7 @@
 
 @section('title','Update')
 
-@section('top','Fasilitas Update')
+@section('toSp','Fasilitas Update')
 
 @section('content')
     <form action="{{route('fasilitas.update', $data ->id)}}" method="POST">

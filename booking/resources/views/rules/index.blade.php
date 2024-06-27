@@ -6,7 +6,7 @@
 
 @section('content')
     <a href="{{route('rules.create')}}" class="btn btn-primary mb-2">Tambah Rules</a>
-    <table class="table bordered">
+S    <table class="table bordered">
         <thead>
             <th>No</th>
             <th>Rule di Lapangan</th>
