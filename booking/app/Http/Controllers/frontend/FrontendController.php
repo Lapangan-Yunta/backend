@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Gallery;
 use App\Models\Lapangan;
 use App\Models\Schedule;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\DetailBooking;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -46,5 +50,15 @@ class FrontendController extends Controller
     public function confirm()
     {
         return view('frontend.confirm-booking');
+    }
+
+    public function cart()
+    {
+        $id = Auth::user()->id;
+        $booking = Booking::where('user_id',$id)->orderBy('id','DESC')->get();
+        $booking_id = Booking::where('user_id',$id)->first();
+        $detail_booking = DetailBooking::where('booking_id',$booking_id)->get();
+        $random_url = Str::random(62);
+        return view('frontend.cart',compact('booking','detail_booking','random_url'));
     }
 }

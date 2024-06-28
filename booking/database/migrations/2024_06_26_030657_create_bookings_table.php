@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('lapangan_id');
             $table->unsignedBigInteger('schedule_id');
             $table->date('date');
-            $table->enum('status', ['booked ', 'available']);
+            $table->enum('status', ['booked ', 'gagal','success']);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('lapangan_id')->references('id')->on('lapangans')->onDelete('cascade');

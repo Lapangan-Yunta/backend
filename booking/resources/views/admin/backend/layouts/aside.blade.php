@@ -7,13 +7,7 @@
     </div>
     <ul class="sidebar-menu">
       <li class="menu-header">Dashboard</li>
-      <li class="nav-item dropdown">
-        <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-        <ul class="dropdown-menu">
-          <li><a class="nav-link" href="index-0.html">General Dashboard</a></li>
-          <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-        </ul>
-      </li>
+      <li class="{{ Route::is('dashboard') ? 'active' : '' }}"><a class="nav-link" href="{{route('dashboard')}}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
       <li class="menu-header">Master Data</li>
       <li class="{{ Route::is('fasilitas.*') ? 'active' : '' }}"><a class="nav-link" href="{{route('fasilitas.index')}}"><i class="far fa-square"></i> <span>Fasilitas</span></a></li>
       <li class="{{ Route::is('rules.*') ? 'active' : '' }}"><a class="nav-link" href="{{route('rules.index')}}"><i class="far fa-square"></i> <span>Rules</span></a></li>
@@ -21,7 +15,7 @@
       <li class="nav-item dropdown">
         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Booking</span></a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="layout-default.html">Lapangan</a></li>
+          <li><a class="nav-link" href="{{route('booking.index')}}">All Booking</a></li>
         </ul>
       </li>
       <li class="{{ Route::is('lapangan.*') ? 'active' : '' }} nav-item dropdown">

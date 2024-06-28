@@ -15,7 +15,7 @@
                     <li class="nav-item mt-2">
                         <a class="nav-link" href="{{route('venue')}}">VENUE</a>
                     </li>
-                    <li class="nav-item nav-link mt-2"><a href="/frontend/payment"><i class="fa-solid fa-cart-shopping"
+                    <li class="nav-item nav-link mt-2"><a href="{{route('cart')}}"><i class="fa-solid fa-cart-shopping"
                                 style="color: #b31312"></i></a>
                     </li>
                     @if(Auth::check())

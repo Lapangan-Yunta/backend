@@ -20,7 +20,7 @@ Route::get('/detail/{title}',[FrontendController::class,'detail'])->name('detail
 
 Route::get('/payment',[FrontendController::class,'payment'])->name('payment');
 
-Route::get('/jadwal', [ScheduleController::class, 'index'])->name('jadwal.index');
+Route::get('/jadwal', [ScheduleController::class, 'index'])->name('jadwal.index')->middleware('auth');
 
 Route::get('/venue',[FrontendController::class,'venue'])->name('venue');
 
@@ -31,6 +31,8 @@ Route::post('/booking',[BookingController::class,'booking'])->name('booking.proc
 Route::get('/booking/detail/{random_url}/{id}',[BookingController::class,'booking_details'])->name('booking.details');
 
 Route::post('/booking/detail/process',[BookingController::class,'booking_details_process'])->name('booking.details.process');
+
+Route::get('/cart',[FrontendController::class,'cart'])->name('cart');
 
 
 
@@ -53,6 +55,10 @@ Route::post('/resend/otp',[AuthController::class,'resend'])->name('resend');
 
 Route::prefix('user')->middleware('auth','checkrole:user')->group(function() {
     Route::get('/dashboard',[UserDashboardController::class,'index'])->name('user.dashboard');
+    Route::get('/history',[UserDashboardController::class,'user_history'])->name('user.history');
+    Route::get('/profile',[UserDashboardController::class,'user_profile'])->name('user.profile');
+    Route::put('/edit-profile/{id}', [UserDashboardController::class, 'edit_profile'])->name('user.edit.profile');
+
 
     Route::post('/schedule', [BookingController::class, 'schedule']);
     Route::get('/cart', [BookingController::class, 'viewCart'])->name('user.cart');
@@ -79,6 +85,11 @@ Route::prefix('admin')->middleware('auth','checkrole:admin')->group(function(){
     Route::put('/lapangan/update/{id}', [LapanganController::class, 'update'])->name('lapangan.update');
 
     Route::delete('/lapangan/delete/{id}', [LapanganController::class, 'destroy'])->name('lapangan.destroy');
+
+    Route::get('/booking',[BookingController::class,'index'])->name('booking.index');
+    Route::get('/booking/detail/{id}',[BookingController::class,'show'])->name('booking.detail');
+    Route::get('/booking/edit/{id}',[BookingController::class,'edit'])->name('booking.edit');
+    Route::put('/booking/update/{id}',[BookingController::class,'update'])->name('booking.update');
 
     Route::get('/gallery/{title}', [GalleryController::class, 'index'])->name('gallery.index');
     Route::post('/gallery/process', [GalleryController::class, 'store'])->name('gallery.process');

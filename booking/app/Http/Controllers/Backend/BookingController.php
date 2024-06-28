@@ -17,6 +17,37 @@ class BookingController extends Controller
     //     $this->middleware('auth');
     // }
 
+    public function index()
+    {
+        $booking = Booking::all();
+        return view('booking.index',compact('booking'));
+    }
+
+    public function show($id)
+    {
+        $booking = Booking::where('id',$id)->first();
+        return view('booking.detail',compact('booking'));
+    }
+
+    public function edit($id)
+    {
+        $booking = Booking::where('id',$id)->first();
+        return view('booking.edit',compact('booking'));
+    }
+
+    public function update(Request $request,$id)
+    {
+        // dd($request->all());
+        $booking_id = Booking::findOrFail($id);
+        $data = $request->validate([
+            'status' => 'required',
+        ]);
+
+        $booking_id->update($data);
+
+        return redirect()->route('booking.index');
+    }
+
     public function addToCart(Request $request)
     {
         // Validasi request

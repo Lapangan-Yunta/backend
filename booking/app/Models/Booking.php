@@ -17,6 +17,11 @@ class Booking extends Model
         'status'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function lapangan()
     {
         return $this->belongsTo(Lapangan::class, 'lapangan_id', 'id');
