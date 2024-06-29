@@ -165,4 +165,11 @@ class AuthController extends Controller
 
         return redirect()->route('verify',compact('phone','random_url'));
     }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('home');
+    }
 }

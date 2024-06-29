@@ -1,4 +1,4 @@
-@extends('backend.layouts.parent')
+@extends('admin.backend.layouts.parent')
 
 @section('title','Update Account')
 

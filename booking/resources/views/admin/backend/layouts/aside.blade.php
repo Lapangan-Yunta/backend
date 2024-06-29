@@ -25,11 +25,11 @@
           <li class="{{ Route::is('lapangan.create') ? 'active' : '' }}"><a class="nav-link" href="{{route('lapangan.create')}}">Create Lapangan</a></li>
         </ul>
       </li>
-      <li class="nav-item dropdown">
+      <li class="{{ Route::is('account.*') ? 'active' : '' }} nav-item dropdown">
         <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Account</span></a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="bootstrap-alert.html">All Data</a></li>
-          <li><a class="nav-link" href="bootstrap-alert.html">Create Account</a></li>
+          <li class="{{ Route::is('account.index') ? 'active' : '' }}"><a class="nav-link" href="{{route('account.index')}}">All Data</a></li>
+          <li class="{{ Route::is('account.create') ? 'active' : '' }}"><a class="nav-link" href="{{route('account.create')}}">Create Account</a></li>
         </ul>
       </li>
   </aside>
